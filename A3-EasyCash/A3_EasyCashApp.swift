@@ -11,7 +11,7 @@ import SwiftUI
 struct A3_EasyCashApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
     }
 }
