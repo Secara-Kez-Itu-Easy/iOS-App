@@ -21,15 +21,12 @@ struct IDUploadView: View {
             
             Spacer()
             
-            Rectangle()
-                .fill(Color.gray.opacity(0.1))
-                .frame(height: 200)
-                .overlay(
-                    Text("KTP Preview")
-                        .foregroundColor(.gray)
-                )
+            Image("IDPreview")
+                .resizable()
+                .scaledToFill()
+                .frame(height: 220)
                 .cornerRadius(12)
-                .padding(.vertical, 48)
+                .padding(48)
             
             Button(action: {
                 // logic view sample
