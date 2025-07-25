@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FaceUploadView: View {
+    var router: AppRouter
+    
     var body: some View {
         VStack{
             Text("Face verification must be clear and unobstructed.")
@@ -42,7 +44,7 @@ struct FaceUploadView: View {
             }
             
             Button(action: {
-                //
+                router.push(.faceVerification)
             }) {
                 Text("Take a Photo")
                     .fontWeight(.bold)
@@ -100,6 +102,7 @@ struct FaceUploadView: View {
         }
         .navigationTitle("Face Verification")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .topBarLeading) {
                 Image(systemName: "arrow.backward")
@@ -115,6 +118,6 @@ struct FaceUploadView: View {
 
 #Preview {
     NavigationStack {
-        FaceUploadView()
+        FaceUploadView(router: AppRouter())
     }
 }

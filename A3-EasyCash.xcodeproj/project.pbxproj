@@ -6,13 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BD1B90B62E2E1CF600DC6A21 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD1B90B52E2E1CF200DC6A21 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		BD1B90B52E2E1CF200DC6A21 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BD62EDD22E2C431900CC99FA /* A3-EasyCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A3-EasyCash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BDDC398F2E334F610067AB46 /* Exceptions for "A3-EasyCash" folder in "A3-EasyCash" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BD62EDD12E2C431900CC99FA /* A3-EasyCash */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BD62EDD42E2C431900CC99FA /* A3-EasyCash */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDDC398F2E334F610067AB46 /* Exceptions for "A3-EasyCash" folder in "A3-EasyCash" target */,
+			);
 			path = "A3-EasyCash";
 			sourceTree = "<group>";
 		};
@@ -32,6 +50,7 @@
 		BD62EDC92E2C431900CC99FA = {
 			isa = PBXGroup;
 			children = (
+				BD1B90B52E2E1CF200DC6A21 /* .gitignore */,
 				BD62EDD42E2C431900CC99FA /* A3-EasyCash */,
 				BD62EDD32E2C431900CC99FA /* Products */,
 			);
@@ -109,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD1B90B62E2E1CF600DC6A21 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +275,8 @@
 				DEVELOPMENT_TEAM = 4QYKG649KC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "A3-EasyCash/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need access to front camera for face verification";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +306,8 @@
 				DEVELOPMENT_TEAM = 4QYKG649KC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "A3-EasyCash/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need access to front camera for face verification";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

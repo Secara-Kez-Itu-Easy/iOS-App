@@ -16,6 +16,8 @@ struct IDInfoView: View {
         !name.isEmpty && !idNumber.isEmpty && !motherName.isEmpty
     }
     
+    var router: AppRouter
+    
     var body: some View {
         VStack (alignment: .leading){
             Text("Ensure the information below is accurate: once submitted, it cannot be edited.")
@@ -38,7 +40,7 @@ struct IDInfoView: View {
             .padding(.horizontal)
             
             Button(action: {
-                // Handle next step
+                router.push(.faceUploadInfo)
             }) {
                 Text("Next Step")
                     .fontWeight(.bold)
@@ -55,6 +57,7 @@ struct IDInfoView: View {
         }
         .navigationTitle("KTP Info")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Image(systemName: "headset")
@@ -70,6 +73,6 @@ struct IDInfoView: View {
 
 #Preview {
     NavigationStack {
-        IDInfoView()
+        IDInfoView(router: AppRouter())
     }
 }

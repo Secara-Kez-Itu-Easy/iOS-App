@@ -12,10 +12,9 @@ class CameraService: NSObject, ObservableObject {
     let session = AVCaptureSession()
     private let output = AVCapturePhotoOutput()
     private var currentInput: AVCaptureDeviceInput?
-    private var currentPosition: CameraPreference = .front
     
     @Published var isCameraReady: Bool = false
-    @Published var isVerifying: Bool = true
+    @Published var isVerifying: Bool = false
     
     func configure(position: CameraPreference = .front) {
         session.beginConfiguration()
@@ -40,7 +39,6 @@ class CameraService: NSObject, ObservableObject {
         session.addInput(input)
         session.addOutput(output)
         currentInput = input
-        currentPosition = position
         
         session.commitConfiguration()
         
@@ -51,18 +49,28 @@ class CameraService: NSObject, ObservableObject {
         session.startRunning()
     }
     
-    //    func switchCamera() {
-    //        isCameraReady = false
-    //        let newPosition: CameraPreference = currentPosition == .front ? .back : .front
-    //        configure(position: newPosition)
-    //    }
-    
-    func capturePhoto() {
+    func capturePhoto(completion: @escaping () -> Void) {
         let settings = AVCapturePhotoSettings()
         isVerifying = true
         output.capturePhoto(with: settings, delegate: self)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+
+        session.stopRunning()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.isVerifying = false
+            completion()
+        }
+    }
+    
+    func start() {
+        if !session.isRunning {
+            session.startRunning()
+        }
+    }
+    
+    func stop() {
+        if session.isRunning {
+            session.stopRunning()
         }
     }
 }

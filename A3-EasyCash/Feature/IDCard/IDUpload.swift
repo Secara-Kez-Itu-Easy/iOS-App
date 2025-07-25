@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct IDUploadView: View {
-    
     @State private var ktpImage: Image? = nil
+    var router: AppRouter
+    
     var body: some View {
         VStack(spacing: 24) {
             
@@ -40,7 +41,7 @@ struct IDUploadView: View {
             }
             
             Button(action: {
-                //
+                router.push(.idCapture)
             }) {
                 Text("Take a Photo")
                     .fontWeight(.bold)
@@ -50,7 +51,6 @@ struct IDUploadView: View {
                     .background(Color.green)
                     .cornerRadius(12)
             }
-            //            .padding(.horizontal)
             
             HStack {
                 Circle()
@@ -91,11 +91,12 @@ struct IDUploadView: View {
                     .foregroundColor(.secondary)
             }
             
-            //                Spacer()
+            Spacer()
         }
         .padding()
         .navigationTitle("ID Card Verification")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .topBarLeading) {
                 Image(systemName: "arrow.backward")
@@ -111,6 +112,6 @@ struct IDUploadView: View {
 
 #Preview {
     NavigationStack {
-        IDUploadView()
+        IDUploadView(router: AppRouter())
     }
 }

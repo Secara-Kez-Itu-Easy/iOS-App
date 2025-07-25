@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct MainView: View {
-    var body: some View {
-        VStack {
-            Button(action: {
-                //Logic
-            }) {
-                Text("Start")
-            }
-            .buttonStyle(.bordered)
-        }
-    }
-}
+    @State var router = AppRouter()
 
-#Preview {
-    NavigationStack {
-        MainView()
+    var body: some View {
+        NavigationStack(path: $router.path) {
+            IDUploadView(router: router)
+                .navigationDestination(for: RouteEnum.self) { route in
+                    switch route {
+                    case .idUploadInfo:
+                        IDUploadView(router: router)
+                    case .idCapture:
+                        IDCaptureView(router: router)
+                    case .idCaptureResult:
+                        CompletedView(object: .idCard, router: router)
+                    case .idInfo:
+                        IDInfoView(router: router)
+                    case .faceUploadInfo:
+                        FaceUploadView(router: router)
+                    case .faceVerification:
+                        FaceCaptureView(router: router)
+                    case .faceVerificationResult:
+                        CompletedView(object: .faceVerification, router: router)
+                    }
+                }
+        }
     }
 }

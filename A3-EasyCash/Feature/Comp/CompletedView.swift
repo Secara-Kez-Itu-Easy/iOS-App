@@ -7,9 +7,40 @@
 
 import SwiftUI
 
+enum CompletedObject {
+    case idCard
+    case faceVerification
+
+    var title: String {
+        switch self {
+        case .idCard: return "ID Card Verification"
+        case .faceVerification: return "Face Verification"
+        }
+    }
+
+    var messagePrefix: String {
+        switch self {
+        case .idCard: return "ID Card is completed."
+        case .faceVerification: return "Verification is completed."
+        }
+    }
+
+    var showHelpIcon: Bool {
+        self == .idCard
+    }
+
+    var nextRoute: RouteEnum {
+        switch self {
+        case .idCard: return .idInfo
+        case .faceVerification: return .idUploadInfo
+        }
+    }
+}
+
 struct CompletedView: View {
-    @StateObject var viewModel: CompletedViewModel
-    
+    let object: CompletedObject
+    var router: AppRouter
+
     var body: some View {
         VStack {
             Image(systemName: "checkmark.circle.fill")
@@ -17,21 +48,22 @@ struct CompletedView: View {
                 .frame(width: 290, height: 290)
                 .foregroundStyle(.green)
                 .padding(.bottom, 72)
-            
+
             (
-                Text(viewModel.messagePrefix).bold() +
-                Text("The page will automatically redirect after 3 seconds")
+                Text(object.messagePrefix).bold() +
+                Text(" The page will automatically redirect after 3 seconds")
             )
             .font(.subheadline)
             .padding(.horizontal, 32)
         }
-        .navigationTitle(viewModel.title)
+        .navigationTitle(object.title)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Image(systemName: "arrow.backward")
             }
-            if viewModel.HelpIcon {
+            if object.showHelpIcon {
                 ToolbarItem {
                     Image(systemName: "headset")
                         .fontWeight(.black)
@@ -39,9 +71,9 @@ struct CompletedView: View {
                 }
             }
         }
-        .onChange(of: viewModel.isRedirecting) {
-            if viewModel.isRedirecting {
-                // Navigating later
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                router.push(object.nextRoute)
             }
         }
     }
@@ -49,6 +81,6 @@ struct CompletedView: View {
 
 #Preview {
     NavigationStack {
-        CompletedView(viewModel: CompletedViewModel(for: .faceVerification))
+        CompletedView(object: .idCard, router: AppRouter())
     }
 }

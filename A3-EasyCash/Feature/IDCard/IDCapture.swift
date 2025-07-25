@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IDCaptureView: View {
     @StateObject private var cameraService = CameraService()
+    var router: AppRouter
         
         var body: some View {
             ZStack {
@@ -19,7 +20,9 @@ struct IDCaptureView: View {
                 VStack {
                     Spacer()
                     Button(action: {
-                        cameraService.capturePhoto()
+                        cameraService.capturePhoto {
+                            router.push(.idCaptureResult)
+                        }
                     }) {
                         Circle()
                             .fill(Color.green)
@@ -35,11 +38,16 @@ struct IDCaptureView: View {
                 }
             }
             .onAppear {
-                cameraService.configure()
+                cameraService.configure(position: .back)
+                cameraService.start()
             }
+            .onDisappear {
+                cameraService.stop()
+            }
+            .navigationBarBackButtonHidden(true)
         }
 }
 
 #Preview {
-    IDCaptureView()
+    IDCaptureView(router: AppRouter())
 }
