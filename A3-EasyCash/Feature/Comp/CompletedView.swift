@@ -31,7 +31,7 @@ enum CompletedObject {
 
     var nextRoute: RouteEnum {
         switch self {
-        case .idCard: return .idInfo
+        case .idCard: return .faceVerification
         case .faceVerification: return .idUploadInfo
         }
     }
@@ -73,7 +73,9 @@ struct CompletedView: View {
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                router.push(object.nextRoute)
+                if object == .faceVerification {
+                    router.push(object.nextRoute)
+                }
             }
         }
     }

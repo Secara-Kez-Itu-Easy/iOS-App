@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct IDInfoView: View {
-    @State var name: String = ""
-    @State var idNumber: String = ""
-    @State var motherName: String = ""
+    @EnvironmentObject var cameraService: CameraService
+    
+    @State private var name: String
+    @State private var idNumber: String
+    @State private var motherName: String = ""
+    
+    var router: AppRouter
     
     var isFormValid: Bool {
         !name.isEmpty && !idNumber.isEmpty && !motherName.isEmpty
     }
     
-    var router: AppRouter
+    init(router: AppRouter, ktpData: VisionKTPData?) {
+        self.router = router
+        _name = State(initialValue: ktpData?.nama ?? "")
+        _idNumber = State(initialValue: ktpData?.nik ?? "")
+    }
     
     var body: some View {
         VStack (alignment: .leading){
@@ -35,12 +43,12 @@ struct IDInfoView: View {
                 
                 TextField("Mother’s Maiden Name", text: $motherName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+                
             }
             .padding(.horizontal)
             
             Button(action: {
-                router.push(.faceUploadInfo)
+                router.push(.idCaptureResult)
             }) {
                 Text("Next Step")
                     .fontWeight(.bold)
@@ -64,15 +72,15 @@ struct IDInfoView: View {
                     .fontWeight(.black)
                     .opacity(0.2)
             }
-            ToolbarItem(placement: .topBarLeading) {
-                Image(systemName: "arrow.left")
-            }
+//            ToolbarItem(placement: .topBarLeading) {
+//                Image(systemName: "arrow.left")
+//            }
         }
     }
 }
 
-#Preview {
-    NavigationStack {
-        IDInfoView(router: AppRouter())
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        IDInfoView(router: AppRouter())
+//    }
+//}

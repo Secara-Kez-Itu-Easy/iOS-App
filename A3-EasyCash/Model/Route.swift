@@ -11,6 +11,7 @@ enum RouteEnum: Hashable {
     case idUploadInfo
     case idCapture
     case idCaptureResult
+    case idResult
     case idInfo
     case faceUploadInfo
     case faceVerification

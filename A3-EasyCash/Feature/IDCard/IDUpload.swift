@@ -1,42 +1,36 @@
-//
-//  IDUpload.swift
-//  A3-EasyCash
-//
-//  Created by Umar Abdul Azis on 21/07/25.
-//
-
 import SwiftUI
 
 struct IDUploadView: View {
-    @State private var ktpImage: Image? = nil
     var router: AppRouter
     
+    @State private var isConsentGiven: Bool = false
+
     var body: some View {
         VStack(spacing: 24) {
-            
+
             Text("Upload a clear and complete photo of your KTP")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            
+
             Spacer()
-            
+
             Image("IDPreview")
                 .resizable()
                 .scaledToFill()
                 .frame(height: 220)
                 .cornerRadius(12)
                 .padding(48)
-            
-            Button(action: {
-                // logic view sample
-            }) {
-                Text("View Sample")
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(.green)
-            }
-            
+
+//            Button(action: {
+//                // logic view sample
+//            }) {
+//                Text("View Sample")
+//                    .font(.caption)
+//                    .fontWeight(.medium)
+//                    .foregroundColor(.green)
+//            }
+
             Button(action: {
                 router.push(.idCapture)
             }) {
@@ -45,10 +39,12 @@ struct IDUploadView: View {
                     .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.green)
+                    .background(isConsentGiven ? Color.green : Color.gray)
                     .cornerRadius(12)
             }
-            
+            .disabled(!isConsentGiven)
+            .padding(.horizontal, 48)
+
             HStack {
                 Circle()
                     .frame(width: 30)
@@ -61,7 +57,7 @@ struct IDUploadView: View {
                             .padding(8)
                     )
                     .padding(.leading, 12)
-                
+
                 Text("Diawasi oleh OJK, keamanan data di Easycash dijamin setara dengan keamanan data di bank.")
                     .font(.caption2)
                     .frame(maxWidth: .infinity)
@@ -71,23 +67,36 @@ struct IDUploadView: View {
             }
             .background(Color.green.opacity(0.25))
             .cornerRadius(10)
-            
+            .padding(.horizontal, 48)
+
             HStack(alignment: .center, spacing: 8) {
                 Button {
-                    //
+                    isConsentGiven.toggle()
                 } label: {
-                    Circle()
-                        .frame(width: 24)
-                        .foregroundStyle(.gray)
-                        .padding(.leading, 12)
+                    ZStack {
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(width: 24, height: 24)
+                        
+                        if isConsentGiven {
+                            Circle()
+                                .fill(Color.gray)
+                                .frame(width: 16, height: 16)
+                        }
+                    }
                 }
-                
+                .tint(.white)
+                .padding(.leading, 12)
+                .padding(.trailing, 12)
+                .offset(x: -6)
+
                 Text("By clicking this, you’re willing to share your data to Easycash, for data verification, any inquiries or any other matters")
                     .font(.caption2)
                     .fontWeight(.light)
                     .foregroundColor(.secondary)
             }
-            
+            .padding(.horizontal, 48)
+
             Spacer()
         }
         .padding()
@@ -95,20 +104,14 @@ struct IDUploadView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar{
-            ToolbarItem(placement: .topBarLeading) {
-                Image(systemName: "arrow.backward")
-            }
+//            ToolbarItem(placement: .topBarLeading) {
+//                Image(systemName: "arrow.backward")
+//            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Image(systemName: "headset")
                     .fontWeight(.black)
                     .opacity(0.2)
             }
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        IDUploadView(router: AppRouter())
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD1B90B62E2E1CF600DC6A21 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD1B90B52E2E1CF200DC6A21 /* .gitignore */; };
+		BDDC3A3C2E376B1D0067AB46 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BDDC3A3B2E376B1D0067AB46 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDDC3A3C2E376B1D0067AB46 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			);
 			name = "A3-EasyCash";
 			packageProductDependencies = (
+				BDDC3A3B2E376B1D0067AB46 /* Alamofire */,
 			);
 			productName = "A3-EasyCash";
 			productReference = BD62EDD22E2C431900CC99FA /* A3-EasyCash.app */;
@@ -113,6 +116,9 @@
 			);
 			mainGroup = BD62EDC92E2C431900CC99FA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BDDC3A3A2E376B1D0067AB46 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BD62EDD32E2C431900CC99FA /* Products */;
 			projectDirPath = "";
@@ -277,6 +283,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "A3-EasyCash/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need access to front camera for face verification";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "We need local network access to upload KTP for verification.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to save ID capture to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,6 +316,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "A3-EasyCash/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need access to front camera for face verification";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "We need local network access to upload KTP for verification.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to save ID capture to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -348,6 +358,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BDDC3A3A2E376B1D0067AB46 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BDDC3A3B2E376B1D0067AB46 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDDC3A3A2E376B1D0067AB46 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD62EDCA2E2C431900CC99FA /* Project object */;
 }

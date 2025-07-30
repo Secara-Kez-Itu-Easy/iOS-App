@@ -8,21 +8,41 @@
 import SwiftUI
 
 struct IDCaptureView: View {
-    @StateObject private var cameraService = CameraService()
+    @EnvironmentObject var cameraService: CameraService
+    @State private var photoCaptured: Bool = false
     var router: AppRouter
-        
-        var body: some View {
-            ZStack {
+    
+    var body: some View {
+        ZStack {
+            if !cameraService.isVerifying {
                 CameraPreview(session: cameraService.session)
+                    .mask(
+                        RoundedRectangle(cornerRadius: 16)
+                            .frame(width: 430, height: 240)
+                            .rotationEffect(.degrees(90))
+                    )
                     .ignoresSafeArea()
-                IDCardOverlay()
+            }   else {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.secondary)
+                        .frame(width: 430, height: 240)
+                        .rotationEffect(.degrees(90))
+                    
+                    VerifyIDView()
+                }
+                .offset(x: 0, y: -12)
+            }
+            
+            IDCardOverlay()
+            
+            VStack {
+                Spacer()
                 
-                VStack {
-                    Spacer()
+                if !photoCaptured {
                     Button(action: {
-                        cameraService.capturePhoto {
-                            router.push(.idCaptureResult)
-                        }
+                        photoCaptured = true
+                        cameraService.capturePhoto()
                     }) {
                         Circle()
                             .fill(Color.green)
@@ -37,17 +57,23 @@ struct IDCaptureView: View {
                     }
                 }
             }
-            .onAppear {
-                cameraService.configure(position: .back)
-                cameraService.start()
-            }
-            .onDisappear {
-                cameraService.stop()
-            }
-            .navigationBarBackButtonHidden(true)
         }
+        .onAppear {
+            cameraService.configure(position: .back)
+            cameraService.start()
+        }
+        .onDisappear {
+            cameraService.stop()
+        }
+        .onChange(of: cameraService.isKTPProcessingDone) { _, done in
+            if done {
+                router.push(.idResult)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+    }
 }
 
-#Preview {
-    IDCaptureView(router: AppRouter())
-}
+//#Preview {
+//    IDCaptureView(router: AppRouter())
+//}

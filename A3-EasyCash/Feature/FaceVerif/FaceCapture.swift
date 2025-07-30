@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FaceCaptureView: View {
-    @StateObject private var cameraService = CameraService()
+    @EnvironmentObject var cameraService: CameraService
     var router: AppRouter
     
     var body: some View {
@@ -42,9 +42,7 @@ struct FaceCaptureView: View {
                     .font(.headline)
                 
                 Button(action: {
-                    cameraService.capturePhoto {
-                        router.push(.faceVerificationResult)
-                    }
+                    cameraService.capturePhoto()
                 }) {
                     Circle()
                         .fill(Color.green)
@@ -78,11 +76,5 @@ struct FaceCaptureView: View {
                     .opacity(0.2)
             }
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        FaceCaptureView(router: AppRouter())
     }
 }
